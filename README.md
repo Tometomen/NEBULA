@@ -97,6 +97,10 @@ JUnitは、全候補の完成、誤入力・IME、促音・小さい仮名・ん
 
 ## GitHub Pages公開
 
+ビルド済みの `gh-pages` ブランチを使う場合は、リポジトリ Settings → Pages → Source を **Deploy from a branch**、Branchを **gh-pages / (root)** にして保存します。初回の公開設定にはリポジトリの管理権限が必要です。通常の公開先は `https://tometomen.github.io/NEBULA/` です。公開前のURLは404になります。
+
+以下はソースからGitHub Actionsでビルド・公開する別の方法です。
+
 1. `./gradlew core:test html:dist` を実行。
 2. `html/build/dist/` の**中身全体**をPagesの公開対象へ配置。`index.html`、`nebula/`、`assets/` を同じ階層に保ちます。
 3. リポジトリ Settings → Pages で公開ブランチを設定、または同梱の `.github/workflows/pages.yml` を手動実行してGitHub Actionsから配布します。Actionsを使う場合、PagesのSourceを **GitHub Actions** に設定してください。
