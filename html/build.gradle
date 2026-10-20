@@ -1,0 +1,28 @@
+configurations { gwtCompiler }
+dependencies {
+    implementation project(':core')
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    gwtCompiler 'org.gwtproject:gwt-dev:2.11.0'
+    gwtCompiler 'org.gwtproject:gwt-user:2.11.0'
+    gwtCompiler "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    gwtCompiler "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+    gwtCompiler 'com.google.jsinterop:jsinterop-annotations:2.0.0:sources'
+}
+tasks.register('compileGwt', JavaExec) {
+    dependsOn ':core:classes', 'classes'
+    mainClass = 'com.google.gwt.dev.Compiler'
+    classpath = configurations.gwtCompiler + sourceSets.main.runtimeClasspath + files('src/main/java', '../core/src/main/java')
+    workingDir = projectDir
+    maxHeapSize = '2g'
+    args '-war', 'build/gwt', '-workDir', 'build/work', '-localWorkers', '2', '-sourceLevel', '1.8', '-style', 'OBF', '-strict', 'com.nebula.Nebula'
+    inputs.files(fileTree('../core/src/main/java'), fileTree('src/main/java'), fileTree('../assets'))
+    outputs.dirs('build/gwt', 'war')
+}
+tasks.register('dist', Sync) {
+    dependsOn 'compileGwt'
+    into 'build/dist'
+    from('build/gwt') { exclude '**/*.symbolMap' }
+    from 'war'
+    from 'webapp'
+    from(rootProject.file('licenses')) { into 'licenses' }
+}

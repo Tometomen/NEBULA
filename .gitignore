@@ -1,0 +1,8 @@
+.gradle/
+**/build/
+html/war/
+.idea/
+*.iml
+node_modules/
+artifacts/
+.local/

@@ -1,0 +1,12 @@
+apply plugin: 'application'
+application { mainClass = 'com.nebula.lwjgl3.DesktopLauncher' }
+dependencies {
+    implementation project(':core')
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+run {
+    workingDir = rootProject.file('assets')
+    systemProperty 'nebula.preferences', rootProject.file('.local/preferences').absolutePath
+    if (System.getProperty('os.name').toLowerCase().contains('mac')) jvmArgs '-XstartOnFirstThread'
+}

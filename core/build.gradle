@@ -1,0 +1,5 @@
+dependencies {
+    api "com.badlogicgames.gdx:gdx:$gdxVersion"
+    testImplementation 'junit:junit:4.13.2'
+}
+test { testLogging { events 'passed', 'skipped', 'failed' } }

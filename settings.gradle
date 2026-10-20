@@ -1,0 +1,2 @@
+rootProject.name = 'nebula-miner'
+include 'core', 'lwjgl3', 'html'
